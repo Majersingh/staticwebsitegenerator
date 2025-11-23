@@ -44,16 +44,22 @@ jobs:
           command: npm install netlify-cli@latest
 
       - run:
-          name: Deploy to Netlify (Static Export)
-          command: |
-            echo "🚀 Deploying static site to Netlify..."
-            npx netlify deploy \
-              --auth=$NETLIFY_AUTH_TOKEN \
-              --dir="out" \
-              --prod \
-              --message="CI Deploy for user << parameters.user_id >>" \
-              --create-site="user-<< parameters.user_id >>-site" \
-              --env USER_ID="<< parameters.user_id >>"
+        name: Deploy to Netlify (Static Export)
+        command: |
+          echo "🚀 Deploying static site to Netlify..."
+
+          # Set environment variable (supports spaces)
+          export USER_ID="<< parameters.user_id >>"
+          echo "USER_ID passed to Netlify: $USER_ID"
+
+          # Netlify inherits USER_ID
+          npx netlify deploy \
+            --auth=$NETLIFY_AUTH_TOKEN \
+            --dir="out" \
+            --prod \
+            --message="CI Deploy for user << parameters.user_id >>" \
+            --create-site="user-<< parameters.user_id >>-site"
+
 
       - store_artifacts:
           path: deploy_output.json
