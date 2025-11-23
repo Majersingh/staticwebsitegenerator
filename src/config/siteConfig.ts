@@ -410,6 +410,7 @@ import {
     },
 };
 
+let cachedConfig:SiteConfig=fallbackConfig;
 // --- sync function returning cached data ---
 export const siteConfig: SiteConfig = await (async () => {
     const API_URL = 'https://buildyourweb.netlify.app/api/siteconfig/123MarketMaven';
