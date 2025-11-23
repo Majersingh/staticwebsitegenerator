@@ -13,7 +13,14 @@ import {
     BsAwardFill,
 } from "react-icons/bs";
 
-export const siteConfig: SiteConfig = {
+
+import { SiteConfig } from "@/types/config";
+
+// --- internal cache ---
+let cachedConfig: SiteConfig | null = null;
+
+
+ const fallbackConfig: SiteConfig = {
     siteName: "MarketMaven",
     showLogo: true,
 
@@ -408,3 +415,30 @@ export const siteConfig: SiteConfig = {
         ],
     },
 };
+
+
+// --- sync function returning cached data ---
+export const siteConfig: SiteConfig = await (async () => {
+    if (cachedConfig) return cachedConfig;
+
+    const API_URL = process.env.USER_CONFIG_FULL_URL || "";
+
+    try {
+        // Fetch once at build/server startup
+        const res = await fetch(API_URL, { cache: "no-store" });
+        const data = await res.json();
+
+        if (data?.success && data?.data) {
+            cachedConfig = data.data;
+        } else {
+            console.warn("⚠ Failed to fetch remote config. Using fallback.");
+            cachedConfig = fallbackConfig;
+        }
+    } catch (err) {
+        console.error("❌ Config fetch error:", err);
+        cachedConfig = fallbackConfig;
+    }
+
+    return cachedConfig;
+})();
+
