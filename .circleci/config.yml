@@ -32,8 +32,8 @@ jobs:
           name: Setting env variable for userid
           command: |
             echo "current user id from cicd api is << parameters.user_id >>"
-            USER_ID="<< parameters.user_id >>"
-            npm run prebuild
+            USER_ID=<< parameters.user_id >> npm run prebuild
+
 
       - run:
           name: Build Next.js (Static Export)
