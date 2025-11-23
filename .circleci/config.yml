@@ -37,7 +37,7 @@ jobs:
 
       - run:
           name: Build Next.js (Static Export)
-          command: npm run build
+          command: USER_ID=<< parameters.user_id >> npm run build
 
       - run:
           name: Install Netlify CLI
