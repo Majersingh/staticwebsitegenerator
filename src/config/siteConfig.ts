@@ -421,7 +421,7 @@ let cachedConfig: SiteConfig | null = null;
 export const siteConfig: SiteConfig = await (async () => {
     if (cachedConfig) return cachedConfig;
 
-    const API_URL = process.env.USER_CONFIG_FULL_URL || "";
+    const API_URL = 'https://buildyourweb.netlify.app/api/siteconfig/123MarketMaven';
 
     try {
         // Fetch once at build/server startup
