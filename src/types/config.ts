@@ -172,6 +172,8 @@ export interface SiteConfig {
                 twitter?: string;
                 linkedin?: string;
                 github?: string;
+                facebook?: string;
+                instaggram?: string;
             };
         }[];
     };

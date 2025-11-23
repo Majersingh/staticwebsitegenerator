@@ -84,11 +84,11 @@ export default function Footer() {
 
                         {/* Social Icons */}
                         <div className="flex items-center gap-3">
-                            <SocialIcon name="facebook" url={footer.social.facebook} />
-                            <SocialIcon name="twitter" url={footer.social.twitter} />
-                            <SocialIcon name="linkedin" url={footer.social.linkedin} />
-                            <SocialIcon name="instagram" url={footer.social.instagram} />
-                            <SocialIcon name="github" url={footer.social.github} />
+                            <SocialIcon name="facebook" url={footer?.social?.facebook} />
+                            <SocialIcon name="twitter" url={footer?.social?.twitter} />
+                            <SocialIcon name="linkedin" url={footer?.social?.linkedin} />
+                            <SocialIcon name="instagram" url={footer?.social?.instagram} />
+                            <SocialIcon name="github" url={footer?.social?.github} />
                         </div>
                     </div>
 

@@ -4,7 +4,7 @@ version: 2.1
 parameters:
   user_id:
     type: string
-    default: "123MarketMaven"
+    default: "okbroMarketMaven"
 
 orbs:
   node: circleci/node@5.1.0
@@ -15,7 +15,7 @@ jobs:
     parameters:
       user_id:
         type: string
-        default: "123"
+        default: "okbroMarketMaven"
 
     docker:
       - image: cimg/node:20.15   # Node 20 LTS (stable for Next.js + Netlify)
@@ -33,23 +33,12 @@ jobs:
 
       # Fetch siteConfig
       - run:
-          name: Fetch siteConfig from Backend API
-          command: |
-            echo "🚀 Building site for user: << parameters.user_id >>"
+        name: Fetch siteConfig from Backend API
+        command: |
+          echo "Fetching config for user << parameters.user_id >>"
+          export USER_ID="<< parameters.user_id >>"
+          npm run prebuild
 
-            API_URL="$USER_CONFIG_API_URL/<< parameters.user_id >>"
-            echo "Fetching config from: $API_URL"
-
-            curl -s "$API_URL" -o api_response.json
-
-            echo "API Response:"
-            cat api_response.json
-
-            SUCCESS=$(jq -r '.success' api_response.json)
-            [ "$SUCCESS" != "true" ] && echo "❌ API error" && exit 1
-
-            mkdir -p src/config
-            jq '.data' api_response.json > src/config/siteConfig.json
 
       # Build static export
       - run:

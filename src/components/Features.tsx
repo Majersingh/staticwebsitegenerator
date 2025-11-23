@@ -4,6 +4,7 @@ import { siteConfig } from "@/config/siteConfig";
 import { motion } from "framer-motion";
 import { getAnimationProps } from "@/lib/animations";
 import { getCardBg } from "@/lib/colors";
+import { getIconComponent } from "@/lib/iconMappers";
 
 export default function Features() {
     const { features } = siteConfig;
@@ -33,7 +34,7 @@ export default function Features() {
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
                     {features.items.map((feature, index) => {
-                        const Icon = feature.icon;
+                        const Icon = getIconComponent(feature.icon)
                         const gradients = [
                             `linear-gradient(to bottom right, ${siteConfig.colors.primary}, ${siteConfig.colors.secondary})`,
                             `linear-gradient(to bottom right, ${siteConfig.colors.secondary}, ${siteConfig.colors.primary})`,
