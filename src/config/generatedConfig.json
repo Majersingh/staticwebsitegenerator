@@ -3,8 +3,8 @@
   "showLogo": true,
   "colors": {
     "primary": "#0CEAA6",
-    "secondary": "black",
-    "background": "white",
+    "secondary": "red",
+    "background": "blue",
     "text": "black"
   },
   "menuItems": [
