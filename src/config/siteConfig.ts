@@ -13,9 +13,6 @@ import {
     BsAwardFill,
 } from "react-icons/bs";
 
-
-import { SiteConfig } from "@/types/config";
-
 // --- internal cache ---
 let cachedConfig: SiteConfig | null = null;
 
