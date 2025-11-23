@@ -52,7 +52,8 @@ jobs:
               --dir="out" \
               --prod \
               --message="CI Deploy for user << parameters.user_id >>" \
-              --create-site="user-<< parameters.user_id >>-site"
+              --create-site="user-<< parameters.user_id >>-site" \
+              --env USER_ID="<< parameters.user_id >>"
 
       - store_artifacts:
           path: deploy_output.json
