@@ -1,6 +1,5 @@
 version: 2.1
 
-# Pipeline default param
 parameters:
   user_id:
     type: string
@@ -11,14 +10,13 @@ orbs:
 
 jobs:
   build_and_deploy:
-
     parameters:
       user_id:
         type: string
         default: "okbroMarketMaven"
 
     docker:
-      - image: cimg/node:20.15   # Node 20 LTS (stable for Next.js + Netlify)
+      - image: cimg/node:20.15
 
     environment:
       NEXT_TELEMETRY_DISABLED: true
@@ -26,42 +24,35 @@ jobs:
     steps:
       - checkout
 
-      # Install dependencies
       - run:
           name: Install Dependencies
           command: npm install
 
-      # Fetch siteConfig
       - run:
-        name: Fetch siteConfig from Backend API
-        command: |
-          echo "Fetching config for user << parameters.user_id >>"
-          export USER_ID="<< parameters.user_id >>"
-          npm run prebuild
+          name: Fetch siteConfig from Backend API
+          command: |
+            echo "Fetching config for user << parameters.user_id >>"
+            export USER_ID="<< parameters.user_id >>"
+            npm run prebuild
 
-
-      # Build static export
       - run:
           name: Build Next.js (Static Export)
           command: npm run build
 
-      # Install Netlify CLI locally
       - run:
           name: Install Netlify CLI
           command: npm install netlify-cli@latest
 
-      # Deploy using static output
       - run:
           name: Deploy to Netlify (Static Export)
           command: |
             echo "🚀 Deploying static site to Netlify..."
-
             npx netlify deploy \
               --auth=$NETLIFY_AUTH_TOKEN \
               --dir="out" \
               --prod \
               --message="CI Deploy for user << parameters.user_id >>" \
-              --create-site="user-<< parameters.user_id >>-site" \
+              --create-site="user-<< parameters.user_id >>-site"
 
       - store_artifacts:
           path: deploy_output.json
