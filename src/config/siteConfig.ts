@@ -13,9 +13,6 @@ import {
     BsAwardFill,
 } from "react-icons/bs";
 
-// --- internal cache ---
-let cachedConfig: SiteConfig | null = null;
-
 
  const fallbackConfig: SiteConfig = {
     siteName: "MarketMaven",
@@ -413,11 +410,8 @@ let cachedConfig: SiteConfig | null = null;
     },
 };
 
-
 // --- sync function returning cached data ---
 export const siteConfig: SiteConfig = await (async () => {
-    if (cachedConfig) return cachedConfig;
-
     const API_URL = 'https://buildyourweb.netlify.app/api/siteconfig/123MarketMaven';
 
     try {
